@@ -6,7 +6,8 @@
       </NuxtLink>
     </div>
     <div class="navbar-end">
-      <a href="" class="btn btn-accent">Sign In</a>
+      <AppThemeToggle />
+      <a class="btn btn-accent">Sign In</a>
     </div>
   </div>
 </template>
