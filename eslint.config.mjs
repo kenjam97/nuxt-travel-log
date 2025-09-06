@@ -9,6 +9,7 @@ export default withNuxt(
     vue: true,
     typescript: true,
     formatters: true,
+    ignores: [".pnpm-store/**"],
     stylistic: {
       indent: 2,
       semi: true,
