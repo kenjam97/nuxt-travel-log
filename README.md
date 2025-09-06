@@ -21,6 +21,7 @@ pnpm dev
 ## Production
 
 Build the application for production:
+
 ```bash
 pnpm build
 ```
