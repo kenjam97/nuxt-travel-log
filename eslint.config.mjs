@@ -9,7 +9,7 @@ export default withNuxt(
     vue: true,
     typescript: true,
     formatters: true,
-    ignores: [".pnpm-store/**"],
+    ignores: [".pnpm-store/**", "**/migrations/*"],
     stylistic: {
       indent: 2,
       semi: true,
