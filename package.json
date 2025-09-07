@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "concurrently \"pnpm dev:db\" \"nuxt dev\"",
+    "dev:db": "wsl -e sh -c \"PATH=$HOME/.turso:$PATH $HOME/.turso/turso dev --db-file /mnt/c/Code/vue-projects/nuxt-travel-log/local.db\"",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -13,10 +14,12 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.14",
     "@nuxt/eslint": "1.9.0",
     "@nuxt/icon": "2.0.0",
     "@nuxtjs/color-mode": "3.5.2",
     "@tailwindcss/vite": "^4.1.13",
+    "drizzle-orm": "^0.44.5",
     "eslint": "^9.35.0",
     "nuxt": "^4.1.0",
     "tailwindcss": "^4.1.13",
@@ -28,7 +31,9 @@
     "@antfu/eslint-config": "^5.2.2",
     "@iconify-json/tabler": "^1.2.22",
     "@types/node": "^24.3.1",
+    "concurrently": "^9.2.1",
     "daisyui": "^5.1.7",
+    "drizzle-kit": "^0.31.4",
     "eslint-plugin-format": "^1.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6"
