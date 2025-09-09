@@ -8,10 +8,7 @@
         <p class="py-6">
           Keep track of your travels and adventures with this simple travel log!
         </p>
-        <button class="btn btn-accent">
-          Sign In With GitHub
-          <Icon name="tabler:brand-github" size="24" />
-        </button>
+        <AuthButton />
       </div>
     </div>
   </div>
