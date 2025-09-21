@@ -5,7 +5,7 @@ import type { InsertLocation } from "../schema";
 import db from "..";
 import { location } from "../schema";
 
-export async function getLocationBySlug(userId: number, slug: string) {
+export async function findLocationBySlug(userId: number, slug: string) {
   return await db
     .select()
     .from(location)
@@ -14,6 +14,12 @@ export async function getLocationBySlug(userId: number, slug: string) {
       eq(location.slug, slug),
     ))
     .get();
+}
+
+export async function findLocations(userId: number) {
+  return db.query.location.findMany({
+    where: eq(location.userId, userId),
+  });
 }
 
 export async function findMatchingSlugs(userId: number, slug: string) {

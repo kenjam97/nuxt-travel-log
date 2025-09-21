@@ -5,15 +5,9 @@ import slugify from "slug";
 import { InsertLocation } from "~/lib/db/schema";
 
 import { findUniqueSlug, insertLocation } from "../../app/lib/db/queries/location";
+import defineAuthenticatedEventHandler from "../utils/define-authenticated-event-handler";
 
-export default defineEventHandler(async (event) => {
-  if (!event.context.user) {
-    return sendError(event, createError({
-      statusCode: 401,
-      statusMessage: "Unauthorized",
-    }));
-  }
-
+export default defineAuthenticatedEventHandler(async (event) => {
   const result = await readValidatedBody(event, InsertLocation.safeParse);
 
   if (!result.success) {
@@ -42,7 +36,7 @@ export default defineEventHandler(async (event) => {
   const slug = await findUniqueSlug(userId, slugify(result.data.name, { lower: true }));
 
   try {
-    return await insertLocation(result.data, slug, userId);
+    return insertLocation(result.data, slug, userId);
   }
   catch (e) {
     const error = e as DrizzleError;
