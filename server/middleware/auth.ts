@@ -5,7 +5,9 @@ export default defineEventHandler(async (event) => {
     headers: event.headers,
   });
 
-  event.context.user = session?.user;
+  event.context.user = session?.user
+    ? { ...session.user, id: Number(session.user.id) }
+    : undefined;
 
   if (event.path.startsWith("/dashboard")) {
     if (!session?.user) {

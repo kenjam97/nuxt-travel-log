@@ -15,7 +15,7 @@ export const auth = betterAuth({
             user: null,
           });
         }
-        return ctx.json(ctx.context.sesion);
+        return ctx.json(ctx.context.session);
       }
     }),
   },

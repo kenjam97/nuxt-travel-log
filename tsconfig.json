@@ -14,5 +14,5 @@
     }
   ],
   // https://nuxt.com/docs/guide/concepts/typescript
-  "files": ["server/libs/types.d.ts"]
+  "files": ["shared/types/types.d.ts"]
 }
