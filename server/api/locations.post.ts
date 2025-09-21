@@ -1,5 +1,10 @@
-import db from "~/lib/db";
-import { InsertLocation, location } from "~/lib/db/schema";
+import type { DrizzleError } from "drizzle-orm";
+
+import slugify from "slug";
+
+import { InsertLocation } from "~/lib/db/schema";
+
+import { findUniqueSlug, insertLocation } from "../../app/lib/db/queries/location";
 
 export default defineEventHandler(async (event) => {
   if (!event.context.user) {
@@ -33,11 +38,15 @@ export default defineEventHandler(async (event) => {
     }));
   }
 
-  const [created] = await db.insert(location).values({
-    ...result.data,
-    slug: result.data.name.replaceAll(" ", "-").toLowerCase(),
-    userId: event.context.user.id,
-  }).returning();
+  const userId = event.context.user.id;
+  const slug = await findUniqueSlug(userId, slugify(result.data.name, { lower: true }));
 
-  return created;
+  try {
+    return await insertLocation(result.data, slug, userId);
+  }
+  catch (e) {
+    const error = e as DrizzleError;
+    console.error(error);
+    throw error;
+  }
 });
